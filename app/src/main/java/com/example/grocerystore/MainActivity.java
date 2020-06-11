@@ -1,10 +1,8 @@
 package com.example.grocerystore;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -58,26 +56,23 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void onNavigationItemSelected() {
-		navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				if (item.getItemId() == R.id.cart) {
-					Toast.makeText(MainActivity.this, "Cart selected", Toast.LENGTH_SHORT).show();
-				}
-				if (item.getItemId() == R.id.categories) {
-					Toast.makeText(MainActivity.this, "Categories selected", Toast.LENGTH_SHORT).show();
-				}
-				if (item.getItemId() == R.id.about) {
-					Toast.makeText(MainActivity.this, "About us selected", Toast.LENGTH_SHORT).show();
-				}
-				if (item.getItemId() == R.id.terms) {
-					Toast.makeText(MainActivity.this, "Terms selected", Toast.LENGTH_SHORT).show();
-				}
-				if (item.getItemId() == R.id.licences) {
-					Toast.makeText(MainActivity.this, "Licences selected", Toast.LENGTH_SHORT).show();
-				}
-				return false;
+		navigationView.setNavigationItemSelectedListener(item -> {
+			if (item.getItemId() == R.id.cart) {
+				Toast.makeText(MainActivity.this, "Cart selected", Toast.LENGTH_SHORT).show();
 			}
+			if (item.getItemId() == R.id.categories) {
+				Toast.makeText(MainActivity.this, "Categories selected", Toast.LENGTH_SHORT).show();
+			}
+			if (item.getItemId() == R.id.about) {
+				Toast.makeText(MainActivity.this, "About us selected", Toast.LENGTH_SHORT).show();
+			}
+			if (item.getItemId() == R.id.terms) {
+				Toast.makeText(MainActivity.this, "Terms selected", Toast.LENGTH_SHORT).show();
+			}
+			if (item.getItemId() == R.id.licences) {
+				Toast.makeText(MainActivity.this, "Licences selected", Toast.LENGTH_SHORT).show();
+			}
+			return false;
 		});
 	}
 
