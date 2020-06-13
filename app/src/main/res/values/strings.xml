@@ -10,4 +10,6 @@
     <string name="licences">Licences</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
+    <string name="price">Price</string>
+    <string name="grocery_item_name">Grocery item name</string>
 </resources>

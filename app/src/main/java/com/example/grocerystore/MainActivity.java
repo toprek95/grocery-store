@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
 		initViews();
 
+		// Initialize shared preferences
+		Utils.initSharedPreferences(this);
+
 		// Set toolbar
 		setSupportActionBar(toolbar);
 		setToggleToolbar();

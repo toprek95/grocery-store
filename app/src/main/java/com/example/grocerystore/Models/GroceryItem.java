@@ -1,5 +1,7 @@
 package com.example.grocerystore.Models;
 
+import com.example.grocerystore.Utils;
+
 import java.util.ArrayList;
 
 public class GroceryItem {
@@ -15,8 +17,8 @@ public class GroceryItem {
 	private int popularityPoints;
 	private ArrayList<Review> reviews;
 
-	public GroceryItem(int id, String name, String description, String imageUrl, String category, double price, int availableAmount) {
-		this.id = id;
+	public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount) {
+		this.id = Utils.getID();
 		this.name = name;
 		this.description = description;
 		this.imageUrl = imageUrl;
