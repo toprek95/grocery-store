@@ -3,8 +3,20 @@ package com.example.grocerystore.Models;
 import com.example.grocerystore.Utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GroceryItem {
+	// Sorting comparators
+	public static Comparator<GroceryItem> groceryItemIdComparator =
+			(item1, item2) -> item1.getId() - item2.getId();
+
+	public static Comparator<GroceryItem> groceryItemPopularityComparator =
+			(item1, item2) -> item1.getPopularityPoints() - item2.getPopularityPoints();
+
+	public static Comparator<GroceryItem> groceryItemSuggestedComparator =
+			(item1, item2) -> item1.getUserPoints() - item2.getUserPoints();
+
+
 	private int id;
 	private String name;
 	private String description;

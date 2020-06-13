@@ -12,4 +12,7 @@
     <string name="home">Home</string>
     <string name="price">Price</string>
     <string name="grocery_item_name">Grocery item name</string>
+    <string name="new_items_label">New Items</string>
+    <string name="popular_items_label">Popular Items</string>
+    <string name="suggested_items_label">Suggested Items</string>
 </resources>

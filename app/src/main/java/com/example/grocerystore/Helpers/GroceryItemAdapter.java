@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.MyViewHolder> {
 
-	private ArrayList<GroceryItem> allGroceryItems = new ArrayList<>();
+	private ArrayList<GroceryItem> groceryItems = new ArrayList<>();
 	private Context context;
 
 	public GroceryItemAdapter(Context context) {
@@ -37,7 +37,7 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 
 	@Override
 	public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-		GroceryItem groceryItem = allGroceryItems.get(position);
+		GroceryItem groceryItem = groceryItems.get(position);
 
 		holder.groceryItemPrice.setText(groceryItem.getPrice() + " $");
 		holder.groceryItemName.setText(groceryItem.getName());
@@ -57,7 +57,12 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 
 	@Override
 	public int getItemCount() {
-		return allGroceryItems.size();
+		return groceryItems.size();
+	}
+
+	public void setGroceryItems(ArrayList<GroceryItem> groceryItems) {
+		this.groceryItems = groceryItems;
+		notifyDataSetChanged();
 	}
 
 	public class MyViewHolder extends RecyclerView.ViewHolder {

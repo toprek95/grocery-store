@@ -16,8 +16,7 @@ public class Utils {
 	private static final String ALL_ITEMS_KEY = "all_items";
 	private static int ID = 0;
 	private static Gson gson = new Gson();
-	private static Type groceryListType = new TypeToken<GroceryItem>() {
-	}.getType();
+	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {}.getType();
 
 
 	public static void initSharedPreferences(Context context) {
@@ -37,17 +36,22 @@ public class Utils {
 				"drink", 3.99, 150
 		));
 
-		allItems.add(new GroceryItem("Coca cola",
+		GroceryItem cocaCola = new GroceryItem("Coca cola",
 				"Coca-Cola, or Coke, is a carbonated soft drink manufactured by The Coca-Cola Company. Originally marketed as a temperance drink and intended as a patent medicine, it was invented in the late 19th century by John Stith Pemberton",
 				"https://m.vecernji.hr/media/img/ed/42/1fd6c7e076f936b7a4cc.jpeg",
-				"drink", 1.99, 50
-		));
+				"drink", 1.99, 50);
+		cocaCola.setPopularityPoints(4);
+		cocaCola.setUserPoints(14);
+		allItems.add(cocaCola);
 
-		allItems.add(new GroceryItem("Ice cream",
+		GroceryItem iceCream = new GroceryItem("Ice cream",
 				"Ice cream is a sweetened frozen food typically eaten as a snack or dessert. It may be made from dairy milk or cream and is flavoured with a sweetener, either sugar or an alternative, and any spice, such as cocoa or vanilla.",
-				"https://en.wikipedia.org/wiki/Ice_cream#/media/File:Ice_cream_with_whipped_cream,_chocolate_syrup,_and_a_wafer_(cropped).jpg",
-				"food", 9.99, 250
-		));
+				"https://bitzngiggles.com/wp-content/uploads/2020/02/Rainbow-Ice-Cream-14-copy.jpg",
+				"food", 9.99, 250);
+		iceCream.setPopularityPoints(10);
+		iceCream.setUserPoints(7);
+		allItems.add(iceCream);
+
 
 		allItems.add(new GroceryItem("Pepsi",
 				"Pepsi is a carbonated soft drink manufactured by PepsiCo. Originally created and developed in 1893 by Caleb Bradham and introduced as Brad's Drink, it was renamed as Pepsi-Cola in 1898, and then shortened to Pepsi in 1961.",
