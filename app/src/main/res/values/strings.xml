@@ -19,4 +19,7 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="add_new_review">(add new review)</string>
     <string name="reviews">Reviews:</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt sem imperdiet auctor aliquet. Morbi convallis felis et molestie convallis. Duis sed lobortis nisl. Aenean cursus ut mi eget posuere. Duis auctor neque nec felis pretium porta. Mauris aliquam ut massa nec pharetra. In pellentesque dui velit, vitae hendrerit orci consequat non. Donec lacinia placerat lacus, et cursus odio suscipit vitae. Curabitur tempor tortor sit amet nunc rhoncus condimentum. Nunc euismod erat sit amet diam lacinia lobortis. Vestibulum facilisis eros ac mattis imperdiet. Aenean porttitor, elit quis ullamcorper mollis, odio dolor hendrerit enim, pretium iaculis ex metus sit amet quam. Sed lectus risus, semper quis efficitur nec, hendrerit a enim. Fusce mollis est sit amet eleifend commodo.</string>
+    <string name="user_name">User name</string>
+    <string name="date_placeholder">23-Mar-2020</string>
 </resources>
