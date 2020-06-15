@@ -1,23 +1,26 @@
 package com.example.grocerystore.Helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.grocerystore.GroceryItemActivity;
 import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+
+import static com.example.grocerystore.GroceryItemActivity.GROCERY_ITEM_ID;
 
 public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.MyViewHolder> {
 
@@ -49,7 +52,9 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 		holder.groceryItemParent.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, groceryItem.getName() + " selected", Toast.LENGTH_SHORT).show();
+				Intent groceryItemIntent = new Intent(context, GroceryItemActivity.class);
+				groceryItemIntent.putExtra(GROCERY_ITEM_ID, groceryItem.getId());
+				context.startActivity(groceryItemIntent);
 			}
 		});
 
