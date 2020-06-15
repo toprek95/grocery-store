@@ -1,16 +1,20 @@
 package com.example.grocerystore.Models;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Review {
 	private int groceryItemId;
 	private String userName;
 	private String review;
 	private String date;
+	private float rating;
 
-	public Review(int groceryItemId, String userName, String review, String date) {
+	public Review(int groceryItemId, String userName, String review, String date, float rating) {
 		this.groceryItemId = groceryItemId;
 		this.userName = userName;
 		this.review = review;
 		this.date = date;
+		this.rating = rating;
 	}
 
 	public int getGroceryItemId() {
@@ -45,6 +49,15 @@ public class Review {
 		this.date = date;
 	}
 
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	@NotNull
 	@Override
 	public String toString() {
 		return "Review{" +
@@ -52,6 +65,7 @@ public class Review {
 				", userName='" + userName + '\'' +
 				", review='" + review + '\'' +
 				", date='" + date + '\'' +
+				", rating=" + rating +
 				'}';
 	}
 }

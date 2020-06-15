@@ -70,6 +70,19 @@ public class Utils {
 		return gson.fromJson(sharedPreferences.getString(ALL_ITEMS_KEY, null), groceryListType);
 	}
 
+	public static GroceryItem getGroceryItemById(Context context, int id) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		ArrayList<GroceryItem> allItems =  gson.fromJson(sharedPreferences.getString(ALL_ITEMS_KEY, null), groceryListType);
+		if (allItems != null) {
+			for (GroceryItem groceryItem : allItems) {
+				if (groceryItem.getId() == id) {
+					return groceryItem;
+				}
+			}
+		}
+		return null;
+	}
+
 	public static int getID() {
 		return ++ID;
 	}

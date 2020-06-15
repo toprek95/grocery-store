@@ -2,6 +2,8 @@ package com.example.grocerystore.Models;
 
 import com.example.grocerystore.Utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -24,7 +26,7 @@ public class GroceryItem {
 	private String category;
 	private double price;
 	private int availableAmount;
-	private int rating;
+	private float averageRating;
 	private int userPoints;
 	private int popularityPoints;
 	private ArrayList<Review> reviews;
@@ -37,18 +39,28 @@ public class GroceryItem {
 		this.category = category;
 		this.price = price;
 		this.availableAmount = availableAmount;
-		this.rating = 0;
+		this.averageRating = calculateAverageRating();
 		this.userPoints = 0;
 		this.popularityPoints = 0;
 		reviews = new ArrayList<>();
 	}
 
-	public int getId() {
-		return id;
+	private float calculateAverageRating() {
+		float avg = 0;
+		int n = reviews.size();
+		for (Review r : reviews) {
+			avg += r.getRating();
+		}
+
+		if (n != 0) {
+			return (avg / n);
+		} else {
+			return  0;
+		}
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -99,12 +111,8 @@ public class GroceryItem {
 		this.availableAmount = availableAmount;
 	}
 
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
+	public float getAverageRating() {
+		return averageRating;
 	}
 
 	public int getUserPoints() {
@@ -129,8 +137,11 @@ public class GroceryItem {
 
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
+		// Change averageRating when new review is added
+		this.averageRating = calculateAverageRating();
 	}
 
+	@NotNull
 	@Override
 	public String toString() {
 		return "GroceryItem{" +
@@ -141,7 +152,7 @@ public class GroceryItem {
 				", category='" + category + '\'' +
 				", price=" + price +
 				", availableAmount=" + availableAmount +
-				", rating=" + rating +
+				", rating=" + averageRating +
 				", userPoints=" + userPoints +
 				", popularityPoints=" + popularityPoints +
 				", reviews=" + reviews.toString() +
