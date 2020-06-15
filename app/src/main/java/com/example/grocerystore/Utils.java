@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.grocerystore.Models.GroceryItem;
+import com.example.grocerystore.Models.Review;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,7 +17,8 @@ public class Utils {
 	private static final String ALL_ITEMS_KEY = "all_items";
 	private static int ID = 0;
 	private static Gson gson = new Gson();
-	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {}.getType();
+	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {
+	}.getType();
 
 
 	public static void initSharedPreferences(Context context) {
@@ -71,8 +73,7 @@ public class Utils {
 	}
 
 	public static GroceryItem getGroceryItemById(Context context, int id) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
-		ArrayList<GroceryItem> allItems =  gson.fromJson(sharedPreferences.getString(ALL_ITEMS_KEY, null), groceryListType);
+		ArrayList<GroceryItem> allItems = getAllItems(context);
 		if (allItems != null) {
 			for (GroceryItem groceryItem : allItems) {
 				if (groceryItem.getId() == id) {
@@ -81,6 +82,38 @@ public class Utils {
 			}
 		}
 		return null;
+	}
+
+	public static void addReview(Context context, Review review) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<GroceryItem> allItems = getAllItems(context);
+
+		if (null != allItems) {
+//			ArrayList<GroceryItem> newItems = new ArrayList<>();
+			for (GroceryItem groceryItem : allItems) {
+				if (groceryItem.getId() == review.getGroceryItemId()) {
+					ArrayList<Review> reviews = groceryItem.getReviews();
+					reviews.add(review);
+					groceryItem.setReviews(reviews);
+				}
+			}
+			editor.remove(ALL_ITEMS_KEY);
+			editor.putString(ALL_ITEMS_KEY, gson.toJson(allItems));
+			editor.commit();
+		}
+	}
+
+	public static ArrayList<Review> getReviewsByGroceryItemId (Context context, int id) {
+		ArrayList<GroceryItem> allItems = getAllItems(context);
+		if (null != allItems) {
+			for (GroceryItem groceryItem : allItems) {
+				if (groceryItem.getId() == id) {
+					return groceryItem.getReviews();
+				}
+			}
+		}
+		return  null;
 	}
 
 	public static int getID() {
