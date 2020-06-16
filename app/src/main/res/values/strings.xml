@@ -27,4 +27,7 @@
     <string name="your_review">Your review</string>
     <string name="add_review">Add review</string>
     <string name="cancel">Cancel</string>
+    <string name="see_all_categories">See All Categories</string>
+    <string name="category_placeholder">Category</string>
+    <string name="search_logo">search_logo</string>
 </resources>

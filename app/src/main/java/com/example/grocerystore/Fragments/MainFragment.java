@@ -1,5 +1,8 @@
 package com.example.grocerystore.Fragments;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grocerystore.Helpers.GroceryItemAdapter;
 import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.R;
+import com.example.grocerystore.SearchActivity;
 import com.example.grocerystore.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,7 +37,6 @@ public class MainFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 
 		initViews(view);
-		bottomNavigationView.setSelectedItemId(R.id.home);
 
 		initBottomNavigationView();
 
@@ -78,12 +81,24 @@ public class MainFragment extends Fragment {
 	}
 
 	private void initBottomNavigationView() {
+		bottomNavigationView.setSelectedItemId(R.id.home);
+
 		bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
 			if (item.getItemId() == R.id.search) {
-				Toast.makeText(getActivity(), "Search selected", Toast.LENGTH_SHORT).show();
+				Intent searchIntent = new Intent(getContext(), SearchActivity.class);
+				searchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					startActivity(searchIntent, ActivityOptions.makeCustomAnimation(
+							getActivity(),
+							R.anim.animation_left_to_right_enter,
+							R.anim.animation_left_to_right_exit).toBundle()
+					);
+				} else {
+					startActivity(searchIntent);
+				}
 			}
 			if (item.getItemId() == R.id.home) {
-				Toast.makeText(getActivity(), "Home selected", Toast.LENGTH_SHORT).show();
+				// Already here
 			}
 			if (item.getItemId() == R.id.cart) {
 				Toast.makeText(getActivity(), "Cart selected", Toast.LENGTH_SHORT).show();
