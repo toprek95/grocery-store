@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,7 +47,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
 			holder.categoryItemName.setTextColor(originalTextViewColor);
 		}
 
-		holder.categoryItemName.setOnClickListener(v -> {
+		holder.categoryItemParent.setOnClickListener(v -> {
 			isSelected[0] = isCategorySelected.get(position);
 			if (isSelected[0]) {
 				holder.categoryItemName.setTextColor(originalTextViewColor);
@@ -80,10 +81,12 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
 
 	public class MyViewHolder extends RecyclerView.ViewHolder {
 		private TextView categoryItemName;
+		private RelativeLayout categoryItemParent;
 
 		public MyViewHolder(@NonNull View itemView) {
 			super(itemView);
 			categoryItemName = itemView.findViewById(R.id.category_item_text);
+			categoryItemParent = itemView.findViewById(R.id.category_item_parent);
 		}
 	}
 }
