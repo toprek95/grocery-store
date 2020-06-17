@@ -107,24 +107,25 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/see_all_categories_text"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp">
+            android:layout_marginEnd="15dp"
+            android:gravity="center">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/categories_recycler_view"
-                    android:layout_width="match_parent"
+                    android:id="@+id/search_recycler_view"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 

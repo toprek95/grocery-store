@@ -30,4 +30,9 @@
     <string name="see_all_categories">See All Categories</string>
     <string name="category_placeholder">Category</string>
     <string name="search_logo">search_logo</string>
+    <string name="confirm">Confirm</string>
+    <string name="select_categories_for_search">Select categories for search:</string>
+    <string name="search_activity_name">search_activity</string>
+    <string name="main_activity_name">main_activity</string>
+    <string name="all_categories_dialog_tag">all_categories_dialog</string>
 </resources>

@@ -9,8 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.grocerystore.Fragments.MainFragment;
+import com.example.grocerystore.Helpers.AllCategoriesDialog;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+
+import static com.example.grocerystore.Helpers.AllCategoriesDialog.START_ACTIVITY;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
 				Toast.makeText(MainActivity.this, "Cart selected", Toast.LENGTH_SHORT).show();
 			}
 			if (item.getItemId() == R.id.categories) {
-				Toast.makeText(MainActivity.this, "Categories selected", Toast.LENGTH_SHORT).show();
+				AllCategoriesDialog dialog = new AllCategoriesDialog();
+				Bundle bundle = new Bundle();
+				bundle.putString(START_ACTIVITY, getString(R.string.main_activity_name));
+				dialog.setArguments(bundle);
+				dialog.show(getSupportFragmentManager(), getString(R.string.all_categories_dialog_tag));
 			}
 			if (item.getItemId() == R.id.about) {
 				Toast.makeText(MainActivity.this, "About us selected", Toast.LENGTH_SHORT).show();

@@ -90,7 +90,6 @@ public class Utils {
 		ArrayList<GroceryItem> allItems = getAllItems(context);
 
 		if (null != allItems) {
-//			ArrayList<GroceryItem> newItems = new ArrayList<>();
 			for (GroceryItem groceryItem : allItems) {
 				if (groceryItem.getId() == review.getGroceryItemId()) {
 					ArrayList<Review> reviews = groceryItem.getReviews();
@@ -114,6 +113,25 @@ public class Utils {
 			}
 		}
 		return  null;
+	}
+
+	public static ArrayList<String> getAllCategories (Context context) {
+		ArrayList<GroceryItem> allItems = getAllItems(context);
+		if (null != allItems) {
+			ArrayList<String> categories = new ArrayList<>();
+			for (GroceryItem item : allItems) {
+				if (!categories.contains(item.getCategory().toLowerCase())) {
+					categories.add(item.getCategory().toLowerCase());
+				}
+			}
+			ArrayList<String> categoriesCapitalized = new ArrayList<>();
+			for (String str : categories) {
+				String s = str.substring(0,1).toUpperCase() + str.substring(1);
+				categoriesCapitalized.add(s);
+			}
+			return categoriesCapitalized;
+		}
+		return null;
 	}
 
 	public static int getID() {

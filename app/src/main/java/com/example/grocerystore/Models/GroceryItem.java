@@ -39,10 +39,10 @@ public class GroceryItem {
 		this.category = category;
 		this.price = price;
 		this.availableAmount = availableAmount;
-		this.averageRating = calculateAverageRating();
 		this.userPoints = 0;
 		this.popularityPoints = 0;
-		reviews = new ArrayList<>();
+		this.reviews = new ArrayList<>();
+		this.averageRating = calculateAverageRating();
 	}
 
 	private float calculateAverageRating() {
