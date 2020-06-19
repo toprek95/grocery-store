@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.grocerystore.Fragments.FirstCartFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,6 +27,10 @@ public class CartActivity extends AppCompatActivity {
 		initViews();
 		initBottomNavigation();
 		setSupportActionBar(toolbar);
+
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.replace(cartFragmentsContainer.getId(), new FirstCartFragment());
+		transaction.commit();
 	}
 
 	private void initBottomNavigation() {

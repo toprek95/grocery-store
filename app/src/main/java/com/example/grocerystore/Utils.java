@@ -3,6 +3,7 @@ package com.example.grocerystore;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.Models.Review;
 import com.google.gson.Gson;
@@ -15,10 +16,11 @@ public class Utils {
 
 	private static final String DB_NAME = "fake_database";
 	private static final String ALL_ITEMS_KEY = "all_items";
+	private static final String CART_ITEMS_KEY = "cart_items";
 	private static int ID = 0;
 	private static Gson gson = new Gson();
-	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {
-	}.getType();
+	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {}.getType();
+	private static Type cartItemsListType = new TypeToken<ArrayList<CartItem>>() {}.getType();
 
 
 	public static void initSharedPreferences(Context context) {
@@ -65,6 +67,10 @@ public class Utils {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString(ALL_ITEMS_KEY, gson.toJson(allItems));
 		editor.commit();
+	}
+
+	public static int getID() {
+		return ++ID;
 	}
 
 	public static ArrayList<GroceryItem> getAllItems(Context context) {
@@ -134,7 +140,32 @@ public class Utils {
 		return null;
 	}
 
-	public static int getID() {
-		return ++ID;
+	public static ArrayList<CartItem> getCartItems(Context context) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		return gson.fromJson(sharedPreferences.getString(CART_ITEMS_KEY, null), cartItemsListType);
+	}
+
+	public static void addCartItem(Context context, CartItem cartItem) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<CartItem> cartItems = getCartItems(context);
+		ArrayList<CartItem> addedCartItems = new ArrayList<>();
+
+		if (null != cartItems) {
+			for (CartItem item : cartItems) {
+				if (item.getItem().getId() == cartItem.getItem().getId()) {
+					int amount = item.getAmount() + cartItem.getAmount();
+					addedCartItems.add(new CartItem(cartItem.getItem(), amount));
+				} else {
+					addedCartItems.add(cartItem);
+				}
+			}
+		} else {
+			addedCartItems.add(cartItem);
+		}
+
+		editor.remove(CART_ITEMS_KEY);
+		editor.putString(CART_ITEMS_KEY, gson.toJson(addedCartItems));
+		editor.commit();
 	}
 }
