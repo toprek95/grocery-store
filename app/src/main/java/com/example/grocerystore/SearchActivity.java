@@ -294,7 +294,17 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 				}
 			}
 			if (item.getItemId() == R.id.cart) {
-				Toast.makeText(this, "Cart selected", Toast.LENGTH_SHORT).show();
+				Intent cartIntent = new Intent(this, CartActivity.class);
+				cartIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					startActivity(cartIntent, ActivityOptions.makeCustomAnimation(
+							this,
+							R.anim.animation_right_to_left_enter,
+							R.anim.animation_right_to_left_exit).toBundle()
+					);
+				} else {
+					startActivity(cartIntent);
+				}
 			}
 
 			return false;

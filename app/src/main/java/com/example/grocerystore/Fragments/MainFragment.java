@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grocerystore.CartActivity;
 import com.example.grocerystore.Helpers.GroceryItemAdapter;
 import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.R;
@@ -101,7 +102,17 @@ public class MainFragment extends Fragment {
 				// Already here
 			}
 			if (item.getItemId() == R.id.cart) {
-				Toast.makeText(getActivity(), "Cart selected", Toast.LENGTH_SHORT).show();
+				Intent cartIntent = new Intent(getContext(), CartActivity.class);
+				cartIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					startActivity(cartIntent, ActivityOptions.makeCustomAnimation(
+							getActivity(),
+							R.anim.animation_right_to_left_enter,
+							R.anim.animation_right_to_left_exit).toBundle()
+					);
+				} else {
+					startActivity(cartIntent);
+				}
 			}
 
 			return false;
