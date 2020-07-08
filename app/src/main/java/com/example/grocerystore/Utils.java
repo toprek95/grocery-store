@@ -190,6 +190,27 @@ public class Utils {
 		editor.commit();
 	}
 
+	public static void removeCartItem(Context context, CartItem cartItem) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<CartItem> cartItems = getCartItems(context);
+		ArrayList<CartItem> addedCartItems = new ArrayList<>();
+
+		if (null != cartItems) {
+			for (CartItem item : cartItems) {
+				if (item.getItem().getId() != cartItem.getItem().getId()) {
+					addedCartItems.add(item);
+				}
+			}
+
+			updateGroceryItemAmount(context, cartItem.getItem(), -cartItem.getAmount());
+		}
+
+		editor.remove(CART_ITEMS_KEY);
+		editor.putString(CART_ITEMS_KEY, gson.toJson(addedCartItems));
+		editor.commit();
+	}
+
 	private static void updateGroceryItemAmount(Context context, GroceryItem groceryItem, int amount) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import static com.example.grocerystore.GroceryItemActivity.GROCERY_ITEM_ID;
 import static com.example.grocerystore.Helpers.AddToCartDialog.AVAILABLE_AMOUNT_KEY;
 
-public class FirstCartFragment extends Fragment {
+public class FirstCartFragment extends Fragment implements CartItemsAdapter.RemoveCartItem {
 
 	private RelativeLayout cartItemsContainer;
 	private Button nextButton;
@@ -42,7 +42,7 @@ public class FirstCartFragment extends Fragment {
 
 		initViews(view);
 
-		adapter = new CartItemsAdapter(getContext(), getActivity());
+		adapter = new CartItemsAdapter(getActivity(), this);
 		cartItemsRecyclerView.setAdapter(adapter);
 		cartItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -101,5 +101,11 @@ public class FirstCartFragment extends Fragment {
 		nextButton = view.findViewById(R.id.cart_items_next_button);
 		cartItemsContainer = view.findViewById(R.id.cart_items_container);
 		emptyCartLabel = view.findViewById(R.id.empty_cart_label);
+	}
+
+	@Override
+	public void onRemoveCartItemResult(CartItem cartItem) {
+		Utils.removeCartItem(getContext(), cartItem);
+		initCartItems();
 	}
 }
