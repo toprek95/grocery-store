@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.grocerystore.Helpers.AddReviewDialog;
+import com.example.grocerystore.Helpers.AddToCartDialog;
 import com.example.grocerystore.Helpers.ReviewsAdapter;
 import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.Models.Review;
@@ -85,8 +86,11 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
 					});
 
 					addToCartButton.setOnClickListener(v -> {
-						// TODO: 15-Jun-2020 Add to cart selected item
-						Toast.makeText(GroceryItemActivity.this, "Add to cart clicked", Toast.LENGTH_SHORT).show();
+						AddToCartDialog dialog = new AddToCartDialog();
+						Bundle bundle = new Bundle();
+						bundle.putInt(GROCERY_ITEM_ID, groceryItemId);
+						dialog.setArguments(bundle);
+						dialog.show(getSupportFragmentManager(), "add_to_cart_dialog");
 					});
 
 				}

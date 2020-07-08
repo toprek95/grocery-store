@@ -19,16 +19,26 @@ public class Utils {
 	private static final String CART_ITEMS_KEY = "cart_items";
 	private static int ID = 0;
 	private static Gson gson = new Gson();
-	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {}.getType();
-	private static Type cartItemsListType = new TypeToken<ArrayList<CartItem>>() {}.getType();
+	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {
+	}.getType();
+	private static Type cartItemsListType = new TypeToken<ArrayList<CartItem>>() {
+	}.getType();
 
 
 	public static void initSharedPreferences(Context context) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
 		ArrayList<GroceryItem> allItems = gson.fromJson(sharedPreferences.getString(ALL_ITEMS_KEY, null), groceryListType);
+		ArrayList<CartItem> cartItems = gson.fromJson(sharedPreferences.getString(CART_ITEMS_KEY, null), cartItemsListType);
 
 		if (null == allItems) {
 			initAllItems(context);
+		}
+
+		if (null == cartItems) {
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			cartItems = new ArrayList<>();
+			editor.putString(CART_ITEMS_KEY, gson.toJson(cartItems));
+			editor.commit();
 		}
 	}
 
@@ -109,7 +119,7 @@ public class Utils {
 		}
 	}
 
-	public static ArrayList<Review> getReviewsByGroceryItemId (Context context, int id) {
+	public static ArrayList<Review> getReviewsByGroceryItemId(Context context, int id) {
 		ArrayList<GroceryItem> allItems = getAllItems(context);
 		if (null != allItems) {
 			for (GroceryItem groceryItem : allItems) {
@@ -118,10 +128,10 @@ public class Utils {
 				}
 			}
 		}
-		return  null;
+		return null;
 	}
 
-	public static ArrayList<String> getAllCategories (Context context) {
+	public static ArrayList<String> getAllCategories(Context context) {
 		ArrayList<GroceryItem> allItems = getAllItems(context);
 		if (null != allItems) {
 			ArrayList<String> categories = new ArrayList<>();
@@ -132,7 +142,7 @@ public class Utils {
 			}
 			ArrayList<String> categoriesCapitalized = new ArrayList<>();
 			for (String str : categories) {
-				String s = str.substring(0,1).toUpperCase() + str.substring(1);
+				String s = str.substring(0, 1).toUpperCase() + str.substring(1);
 				categoriesCapitalized.add(s);
 			}
 			return categoriesCapitalized;
@@ -152,20 +162,51 @@ public class Utils {
 		ArrayList<CartItem> addedCartItems = new ArrayList<>();
 
 		if (null != cartItems) {
+			boolean isInCart = false;
 			for (CartItem item : cartItems) {
 				if (item.getItem().getId() == cartItem.getItem().getId()) {
-					int amount = item.getAmount() + cartItem.getAmount();
-					addedCartItems.add(new CartItem(cartItem.getItem(), amount));
-				} else {
-					addedCartItems.add(cartItem);
+					isInCart = true;
 				}
 			}
-		} else {
-			addedCartItems.add(cartItem);
+			if (isInCart) {
+				for (CartItem item : cartItems) {
+					if (item.getItem().getId() == cartItem.getItem().getId()) {
+						int amount = item.getAmount() + cartItem.getAmount();
+						addedCartItems.add(new CartItem(cartItem.getItem(), amount));
+					} else {
+						addedCartItems.add(item);
+					}
+				}
+			} else {
+				addedCartItems.addAll(cartItems);
+				addedCartItems.add(cartItem);
+			}
+
+			updateGroceryItemAmount(context, cartItem.getItem(), cartItem.getAmount());
 		}
 
 		editor.remove(CART_ITEMS_KEY);
 		editor.putString(CART_ITEMS_KEY, gson.toJson(addedCartItems));
+		editor.commit();
+	}
+
+	private static void updateGroceryItemAmount(Context context, GroceryItem groceryItem, int amount) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<GroceryItem> groceryItems = getAllItems(context);
+		ArrayList<GroceryItem> editedItems = new ArrayList<>();
+		if (null != groceryItems) {
+			for (GroceryItem item : groceryItems) {
+				if (item.getId() == groceryItem.getId()) {
+					int newAmount = item.getAvailableAmount() - amount;
+					item.setAvailableAmount(newAmount);
+				}
+				editedItems.add(item);
+			}
+		}
+
+		editor.remove(ALL_ITEMS_KEY);
+		editor.putString(ALL_ITEMS_KEY, gson.toJson(editedItems));
 		editor.commit();
 	}
 }

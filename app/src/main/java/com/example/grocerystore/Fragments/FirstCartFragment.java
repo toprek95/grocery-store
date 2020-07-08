@@ -15,12 +15,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grocerystore.Helpers.AddToCartDialog;
 import com.example.grocerystore.Helpers.CartItemsAdapter;
 import com.example.grocerystore.Models.CartItem;
+import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.R;
 import com.example.grocerystore.Utils;
 
 import java.util.ArrayList;
+
+import static com.example.grocerystore.GroceryItemActivity.GROCERY_ITEM_ID;
+import static com.example.grocerystore.Helpers.AddToCartDialog.AVAILABLE_AMOUNT_KEY;
 
 public class FirstCartFragment extends Fragment {
 
@@ -40,6 +45,19 @@ public class FirstCartFragment extends Fragment {
 		adapter = new CartItemsAdapter(getContext(), getActivity());
 		cartItemsRecyclerView.setAdapter(adapter);
 		cartItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+		Bundle incomingBundle = getArguments();
+		if (null != incomingBundle) {
+			int amount = incomingBundle.getInt(AVAILABLE_AMOUNT_KEY, -1);
+			int groceryItemId = incomingBundle.getInt(GROCERY_ITEM_ID, -1);
+			GroceryItem groceryItem = Utils.getGroceryItemById(getContext(), groceryItemId);
+
+			if (null != groceryItem) {
+				if (amount != -1) {
+					Utils.addCartItem(getContext(), new CartItem(groceryItem, amount));
+				}
+			}
+		}
 
 		initCartItems();
 
@@ -74,7 +92,7 @@ public class FirstCartFragment extends Fragment {
 		for (CartItem item : cartItems) {
 			price += item.getTotalPrice();
 		}
-		return price;
+		return Math.round(price*100.0)/100.0;
 	}
 
 	private void initViews(View view) {

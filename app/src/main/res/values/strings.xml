@@ -45,4 +45,6 @@
     <string name="price_label">Price:</string>
     <string name="grocery_item_image_desc">Grocery item image</string>
     <string name="delete_icon_desc">Delete icon</string>
+    <string name="add_to_cart_dialog_label">Add to cart:</string>
+    <string name="number_of_items_hint">Number of items</string>
 </resources>
