@@ -7,15 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.grocerystore.Helpers.AddToCartDialog;
 import com.example.grocerystore.Helpers.CartItemsAdapter;
 import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.GroceryItem;
@@ -62,8 +61,13 @@ public class FirstCartFragment extends Fragment implements CartItemsAdapter.Remo
 		initCartItems();
 
 		nextButton.setOnClickListener(v -> {
-			// TODO: 19-Jun-2020 Navigate user to second cart fragment
-			Toast.makeText(getContext(), "Next", Toast.LENGTH_SHORT).show();
+			//If there is saved bundle from second fragment, pass it back to second fragment
+			Bundle bundle = getArguments();
+			FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+			SecondCartFragment secondCartFragment = new SecondCartFragment();
+			secondCartFragment.setArguments(bundle);
+			transaction.replace(R.id.cart_fragments_container, secondCartFragment);
+			transaction.commit();
 		});
 
 		return view;
@@ -92,7 +96,7 @@ public class FirstCartFragment extends Fragment implements CartItemsAdapter.Remo
 		for (CartItem item : cartItems) {
 			price += item.getTotalPrice();
 		}
-		return Math.round(price*100.0)/100.0;
+		return Math.round(price * 100.0) / 100.0;
 	}
 
 	private void initViews(View view) {

@@ -32,6 +32,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/number_of_items_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -44,11 +45,9 @@
             android:id="@+id/number_of_items_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:inputType="number"
             android:lines="1"
-            android:maxLines="1"
-            app:boxBackgroundColor="@android:color/transparent" />
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

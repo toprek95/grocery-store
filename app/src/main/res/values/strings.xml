@@ -47,4 +47,21 @@
     <string name="delete_icon_desc">Delete icon</string>
     <string name="add_to_cart_dialog_label">Add to cart:</string>
     <string name="number_of_items_hint">Number of items</string>
+    <string name="street_address">Street address</string>
+    <string name="full_name">Full name</string>
+    <string name="city">City</string>
+    <string name="zip_code">ZIP code</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
+    <string name="back">Back</string>
+    <string name="error_full_name">Please enter full name</string>
+    <string name="error_phone_number">Please enter phone number</string>
+    <string name="error_email">Please enter your Email address</string>
+    <string name="error_street_address">Please enter address</string>
+    <string name="error_city">Please enter city</string>
+    <string name="error_zip_code">Please enter ZIP</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="error_first_name">Please enter first name</string>
+    <string name="error_last_name">Please enter last name</string>
 </resources>
