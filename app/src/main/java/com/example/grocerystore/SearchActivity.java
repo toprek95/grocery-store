@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,18 +30,17 @@ import static com.example.grocerystore.Helpers.AllCategoriesDialog.START_ACTIVIT
 public class SearchActivity extends AppCompatActivity implements AllCategoriesDialog.SelectedCategories {
 
 	private static final String TAG = "SearchActivityDebug";
+	ColorStateList originalTextViewColor;
 	private EditText searchInput;
 	private ImageView searchButton;
 	private TextView firstCategory, secondCategory, thirdCategory, seeAllCategories;
 	private MaterialToolbar toolbar;
 	private BottomNavigationView bottomNavigationView;
 	private RecyclerView searchResultRecyclerView;
-
 	private GroceryItemAdapter groceryItemAdapter;
 	private ArrayList<GroceryItem> allGroceryItems;
 	private ArrayList<String> allCategories;
 	private ArrayList<Boolean> isCategorySelected;
-	ColorStateList originalTextViewColor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +204,8 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 			}
 		}
 		groceryItemAdapter.setGroceryItems(filteredItems);
+		//Update user points for items that appear in search
+		updateUserPoints(filteredItems);
 
 	}
 
@@ -234,6 +234,8 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 			}
 		}
 		groceryItemAdapter.setGroceryItems(filteredItems);
+		//Update user points for items that appear in search
+		updateUserPoints(filteredItems);
 	}
 
 	private ArrayList<String> getItemSubstrings(String itemName) {
@@ -341,7 +343,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 	private void setCategoriesColor() {
 		if (firstCategory.getVisibility() == View.VISIBLE && isCategorySelected.get(0)) {
 			firstCategory.setTextColor(getResources().getColor(R.color.colorPrimary));
-		} else if (firstCategory.getVisibility() == View.VISIBLE && !isCategorySelected.get(0)){
+		} else if (firstCategory.getVisibility() == View.VISIBLE && !isCategorySelected.get(0)) {
 			firstCategory.setTextColor(originalTextViewColor);
 		}
 
@@ -355,6 +357,12 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 			thirdCategory.setTextColor(getResources().getColor(R.color.colorPrimary));
 		} else if (thirdCategory.getVisibility() == View.VISIBLE && !isCategorySelected.get(2)) {
 			thirdCategory.setTextColor(originalTextViewColor);
+		}
+	}
+
+	private void updateUserPoints(ArrayList<GroceryItem> groceryItems) {
+		for (GroceryItem item : groceryItems) {
+			Utils.updateUserPoints(this, item, 1);
 		}
 	}
 }

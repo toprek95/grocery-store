@@ -2,6 +2,7 @@ package com.example.grocerystore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.GroceryItem;
@@ -232,6 +233,35 @@ public class Utils {
 			for (GroceryItem i : allItems) {
 				if (i.getId() == item.getId()) {
 					i.setPopularityPoints(i.getPopularityPoints() + points);
+				}
+				mewItems.add(i);
+			}
+		}
+
+		editor.remove(ALL_ITEMS_KEY);
+		editor.putString(ALL_ITEMS_KEY, gson.toJson(mewItems));
+		editor.commit();
+	}
+
+	public static void updateUserPoints(Context context, GroceryItem item, int points) {
+		/*
+		* Update user point based on next criteria:
+		* User visits item:         1 point
+		* User rate item:           (Rate*2) points
+		* User review item:         3 points
+		* User purchase item:       4 points
+		* Item appear in search:    1 point
+		* User read item            1 point every minute
+		*/
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<GroceryItem> allItems = getAllItems(context);
+		ArrayList<GroceryItem> mewItems = new ArrayList<>();
+		if (null != allItems) {
+			for (GroceryItem i : allItems) {
+				if (i.getId() == item.getId()) {
+					i.setUserPoints(i.getUserPoints() + points);
+					Toast.makeText(context, i.getName() + " UP: " + i.getUserPoints(), Toast.LENGTH_SHORT).show();
 				}
 				mewItems.add(i);
 			}

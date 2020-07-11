@@ -17,7 +17,6 @@ import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.Order;
 import com.example.grocerystore.R;
 import com.example.grocerystore.Utils;
-import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -42,7 +41,8 @@ public class PaymentResultFragment extends Fragment {
 			String jsonOrder = bundle.getString(ORDER_KEY);
 			if (null != jsonOrder) {
 				Gson gson = new Gson();
-				Type type = new TypeToken<Order>(){}.getType();
+				Type type = new TypeToken<Order>() {
+				}.getType();
 
 				Order order = gson.fromJson(jsonOrder, type);
 				if (null != order) {
@@ -51,8 +51,10 @@ public class PaymentResultFragment extends Fragment {
 						//Clear cart after purchase
 						Utils.clearCartItems(getContext());
 						//Update bought items popularity points
+						//Update user points for every bought item
 						for (CartItem item : order.getCartItems()) {
 							Utils.updatePopularityPoints(getContext(), item.getItem(), item.getAmount());
+							Utils.updateUserPoints(getContext(), item.getItem(), item.getAmount() * 4);
 						}
 					} else {
 						paymentMessage.setText(getString(R.string.payment_failed));
@@ -66,7 +68,7 @@ public class PaymentResultFragment extends Fragment {
 
 		homeButton.setOnClickListener(v -> {
 			Intent intent = new Intent(getContext(), MainActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		});
 
