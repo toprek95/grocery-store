@@ -1,11 +1,14 @@
 package com.example.grocerystore.Models;
 
+import com.example.grocerystore.Utils;
+
 import java.util.ArrayList;
 
 public class Order {
 
 	private int id;
 	private ArrayList<CartItem> cartItems;
+	private double totalPrice;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -15,8 +18,10 @@ public class Order {
 	private String zipCode;
 	private boolean isSuccessful;
 
-	public Order(ArrayList<CartItem> cartItems, String firstName, String lastName, String phoneNumber, String email, String streetAddress, String city, String zipCode, boolean isSuccessful) {
+	public Order(ArrayList<CartItem> cartItems, double totalPrice, String firstName, String lastName, String phoneNumber, String email, String streetAddress, String city, String zipCode, boolean isSuccessful) {
+		this.id = Utils.getOrderID();
 		this.cartItems = cartItems;
+		this.totalPrice = totalPrice;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -28,6 +33,7 @@ public class Order {
 	}
 
 	public Order() {
+		this.id = Utils.getOrderID();
 	}
 
 	public ArrayList<CartItem> getCartItems() {
@@ -36,6 +42,14 @@ public class Order {
 
 	public void setCartItems(ArrayList<CartItem> cartItems) {
 		this.cartItems = cartItems;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public String getFirstName() {
@@ -107,6 +121,7 @@ public class Order {
 		return "Order{" +
 				"id=" + id +
 				", cartItems=" + cartItems +
+				", totalPrice=" + totalPrice +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", phoneNumber='" + phoneNumber + '\'' +

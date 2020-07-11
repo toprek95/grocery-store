@@ -18,6 +18,7 @@ public class Utils {
 	private static final String ALL_ITEMS_KEY = "all_items";
 	private static final String CART_ITEMS_KEY = "cart_items";
 	private static int ID = 0;
+	private static int ORDER_ID = 0;
 	private static Gson gson = new Gson();
 	private static Type groceryListType = new TypeToken<ArrayList<GroceryItem>>() {
 	}.getType();
@@ -81,6 +82,10 @@ public class Utils {
 
 	public static int getID() {
 		return ++ID;
+	}
+
+	public static int getOrderID() {
+		return ++ORDER_ID;
 	}
 
 	public static ArrayList<GroceryItem> getAllItems(Context context) {

@@ -17,14 +17,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.Order;
 import com.example.grocerystore.R;
+import com.example.grocerystore.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class SecondCartFragment extends Fragment {
 
@@ -245,6 +248,9 @@ public class SecondCartFragment extends Fragment {
 	}
 
 	private void enterOrderData() {
+		ArrayList<CartItem> cartItems = Utils.getCartItems(getContext());
+		order.setCartItems(cartItems);
+		order.setTotalPrice(getTotalPrice(cartItems));
 		order.setFirstName(firstNameEditText.getText().toString());
 		order.setLastName(lastNameEditText.getText().toString());
 		order.setPhoneNumber(phoneNumberEditText.getText().toString());
@@ -252,6 +258,14 @@ public class SecondCartFragment extends Fragment {
 		order.setStreetAddress(addressEditText.getText().toString());
 		order.setCity(cityEditText.getText().toString());
 		order.setZipCode(zipCodeEditText.getText().toString());
+	}
+
+	private double getTotalPrice(ArrayList<CartItem> cartItems) {
+		double price = 0;
+		for (CartItem item : cartItems) {
+			price += item.getTotalPrice();
+		}
+		return Math.round(price * 100.0) / 100.0;
 	}
 
 	private void initViews(View view) {
