@@ -1,19 +1,20 @@
 package com.example.grocerystore.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.grocerystore.Helpers.OrderEndpoint;
 import com.example.grocerystore.Models.Order;
 import com.example.grocerystore.R;
 import com.google.gson.Gson;
@@ -21,10 +22,19 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static com.example.grocerystore.Fragments.SecondCartFragment.ORDER_KEY;
 
 public class ThirdCartFragment extends Fragment {
 
+	private static final String TAG = "ThirdCartFragment";
 	private TextView itemsTextView, totalPriceTextView, fullNameTextView, addressTextView, phoneNumberTextView, backButton;
 	private RadioGroup paymentMethodRadioGroup;
 	private Button checkoutButton;
@@ -77,7 +87,49 @@ public class ThirdCartFragment extends Fragment {
 		checkoutButton.setOnClickListener(v -> {
 			checkPaymentMethod();
 			order.setSuccessful(true); //For testing purposes
-			// TODO: 11-Jul-2020 Send request with Retrofit
+
+			HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
+					.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+			OkHttpClient client = new OkHttpClient.Builder()
+					.addInterceptor(interceptor)
+					.build();
+
+			Retrofit retrofit = new Retrofit.Builder()
+					.baseUrl("https://jsonplaceholder.typicode.com/")
+					.addConverterFactory(GsonConverterFactory.create())
+					.client(client)
+					.build();
+
+			OrderEndpoint endpoint = retrofit.create(OrderEndpoint.class);
+			Call<Order> call = endpoint.newOrder(order);
+			call.enqueue(new Callback<Order>() {
+				@Override
+				public void onResponse(Call<Order> call, Response<Order> response) {
+					Log.d(TAG, "onResponse, Code: " + response.code());
+					if (response.isSuccessful()) {
+						Bundle responseBundle = new Bundle();
+						Gson gson = new Gson();
+						responseBundle.putString(ORDER_KEY, gson.toJson(response.body()));
+						PaymentResultFragment paymentResultFragment = new PaymentResultFragment();
+						paymentResultFragment.setArguments(responseBundle);
+						FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+						transaction.replace(R.id.cart_fragments_container, paymentResultFragment);
+						transaction.commit();
+
+					} else {
+						// If response from retrofit is not what we are expecting (Order)
+						FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+						transaction.replace(R.id.cart_fragments_container, new PaymentResultFragment());
+						transaction.commit();
+					}
+				}
+
+				@Override
+				public void onFailure(Call<Order> call, Throwable t) {
+					t.printStackTrace();
+				}
+			});
 		});
 
 		return view;

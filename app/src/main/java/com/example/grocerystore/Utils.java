@@ -216,6 +216,32 @@ public class Utils {
 		editor.commit();
 	}
 
+	public static void clearCartItems(Context context) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.remove(CART_ITEMS_KEY);
+		editor.commit();
+	}
+
+	public static void updatePopularityPoints(Context context, GroceryItem item, int points) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		ArrayList<GroceryItem> allItems = getAllItems(context);
+		ArrayList<GroceryItem> mewItems = new ArrayList<>();
+		if (null != allItems) {
+			for (GroceryItem i : allItems) {
+				if (i.getId() == item.getId()) {
+					i.setPopularityPoints(i.getPopularityPoints() + points);
+				}
+				mewItems.add(i);
+			}
+		}
+
+		editor.remove(ALL_ITEMS_KEY);
+		editor.putString(ALL_ITEMS_KEY, gson.toJson(mewItems));
+		editor.commit();
+	}
+
 	private static void updateGroceryItemAmount(Context context, GroceryItem groceryItem, int amount) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();

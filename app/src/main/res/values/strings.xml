@@ -78,4 +78,7 @@
     <string name="items_placeholder">Pepsi, Coca Cola, Ice Cream</string>
     <string name="checkout_button">Checkout</string>
     <string name="unknown_payment">Unknown</string>
+    <string name="start_shopping">Start shopping</string>
+    <string name="payment_successful">Payment successful</string>
+    <string name="payment_failed">Payment failed. Please try again</string>
 </resources>
