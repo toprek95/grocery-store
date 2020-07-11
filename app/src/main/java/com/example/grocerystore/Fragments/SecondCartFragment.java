@@ -87,8 +87,13 @@ public class SecondCartFragment extends Fragment {
 				showKeyboard(zipCodeEditText);
 			} else {
 				enterOrderData();
-				// TODO: 11-Jul-2020 Send data to third fragment
-				Toast.makeText(getActivity(), order.toString(), Toast.LENGTH_LONG).show();
+				ThirdCartFragment thirdCartFragment = new ThirdCartFragment();
+				Bundle orderBundle = new Bundle();
+				orderBundle.putString(ORDER_KEY, gson.toJson(order));
+				thirdCartFragment.setArguments(orderBundle);
+				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+				transaction.replace(R.id.cart_fragments_container, thirdCartFragment);
+				transaction.commit();
 			}
 		});
 

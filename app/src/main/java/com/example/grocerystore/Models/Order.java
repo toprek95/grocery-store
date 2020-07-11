@@ -16,9 +16,10 @@ public class Order {
 	private String streetAddress;
 	private String city;
 	private String zipCode;
+	private String paymentMethod;
 	private boolean isSuccessful;
 
-	public Order(ArrayList<CartItem> cartItems, double totalPrice, String firstName, String lastName, String phoneNumber, String email, String streetAddress, String city, String zipCode, boolean isSuccessful) {
+	public Order(ArrayList<CartItem> cartItems, double totalPrice, String firstName, String lastName, String phoneNumber, String email, String streetAddress, String city, String zipCode, String paymentMethod, boolean isSuccessful) {
 		this.id = Utils.getOrderID();
 		this.cartItems = cartItems;
 		this.totalPrice = totalPrice;
@@ -29,11 +30,16 @@ public class Order {
 		this.streetAddress = streetAddress;
 		this.city = city;
 		this.zipCode = zipCode;
+		this.paymentMethod = paymentMethod;
 		this.isSuccessful = isSuccessful;
 	}
 
 	public Order() {
 		this.id = Utils.getOrderID();
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public ArrayList<CartItem> getCartItems() {
@@ -108,6 +114,14 @@ public class Order {
 		this.zipCode = zipCode;
 	}
 
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
 	public boolean isSuccessful() {
 		return isSuccessful;
 	}
@@ -129,6 +143,7 @@ public class Order {
 				", streetAddress='" + streetAddress + '\'' +
 				", city='" + city + '\'' +
 				", zipCode='" + zipCode + '\'' +
+				", paymentMethod='" + paymentMethod + '\'' +
 				", isSuccessful=" + isSuccessful +
 				'}';
 	}

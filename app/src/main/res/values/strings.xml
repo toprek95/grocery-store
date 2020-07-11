@@ -64,4 +64,18 @@
     <string name="first_name">First name</string>
     <string name="error_first_name">Please enter first name</string>
     <string name="error_last_name">Please enter last name</string>
+    <string name="full_name_order">Full name:</string>
+    <string name="full_name_placeholder">Peter Parker</string>
+    <string name="total_price_order">Total price:</string>
+    <string name="address_order">Address:</string>
+    <string name="address_placeholder">221b Baker Street, London</string>
+    <string name="phone_number_order">Phone number:</string>
+    <string name="phone_number_placeholder">+12 345 67 89</string>
+    <string name="payment_method">Select a payment method:</string>
+    <string name="creditcard">CreditCard</string>
+    <string name="paypal">PayPal</string>
+    <string name="items_order">Items:</string>
+    <string name="items_placeholder">Pepsi, Coca Cola, Ice Cream</string>
+    <string name="checkout_button">Checkout</string>
+    <string name="unknown_payment">Unknown</string>
 </resources>
