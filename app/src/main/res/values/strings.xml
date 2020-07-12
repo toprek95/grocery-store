@@ -81,4 +81,9 @@
     <string name="start_shopping">Start shopping</string>
     <string name="payment_successful">Payment successful</string>
     <string name="payment_failed">Payment failed. Please try again</string>
+    <string name="app_description">This application is designed and developed by Aleksandar Toprek, with a little help from Android tutorials, stackoverflow.com, and randomized Google searches.</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="terms_description">This application is released without any Terms and Conditions. \nEnjoy using this application.</string>
+    <string name="google_url">https://www.google.com/</string>
 </resources>

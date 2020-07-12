@@ -1,19 +1,26 @@
 package com.example.grocerystore;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.grocerystore.Fragments.MainFragment;
 import com.example.grocerystore.Helpers.AllCategoriesDialog;
+import com.example.grocerystore.Helpers.LicencesDialog;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 import static com.example.grocerystore.Helpers.AllCategoriesDialog.START_ACTIVITY;
+import static com.example.grocerystore.WebsiteActivity.URL_KEY;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +45,28 @@ public class MainActivity extends AppCompatActivity {
 		// Navigation from menu
 		onNavigationItemSelected();
 
+		//Navigation header textView and image
+		handleNavigationHeader();
+
 		FragmentTransaction mainFragmentTransaction = getSupportFragmentManager().beginTransaction();
 		mainFragmentTransaction.replace(R.id.main_fragment_container, new MainFragment());
 		mainFragmentTransaction.commit();
+	}
+
+	private void handleNavigationHeader() {
+		View headerView = navigationView.getHeaderView(0);
+		TextView webSiteTextView = (TextView) headerView.findViewById(R.id.navigation_menu_website);
+		ImageView appImage = (ImageView) headerView.findViewById(R.id.navigation_menu_icon);
+
+		Glide.with(this)
+				.asBitmap()
+				.load(R.mipmap.ic_logo)
+				.into(appImage);
+		webSiteTextView.setOnClickListener(v -> {
+			Intent webIntent = new Intent(MainActivity.this, WebsiteActivity.class);
+			webIntent.putExtra(URL_KEY, "https://github.com/toprek95");
+			startActivity(webIntent);
+		});
 	}
 
 	private void initViews() {
@@ -64,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
 	private void onNavigationItemSelected() {
 		navigationView.setNavigationItemSelectedListener(item -> {
 			if (item.getItemId() == R.id.cart) {
-				Toast.makeText(MainActivity.this, "Cart selected", Toast.LENGTH_SHORT).show();
+				Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
+				cartIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(cartIntent);
 			}
 			if (item.getItemId() == R.id.categories) {
 				AllCategoriesDialog dialog = new AllCategoriesDialog();
@@ -74,13 +102,26 @@ public class MainActivity extends AppCompatActivity {
 				dialog.show(getSupportFragmentManager(), getString(R.string.all_categories_dialog_tag));
 			}
 			if (item.getItemId() == R.id.about) {
-				Toast.makeText(MainActivity.this, "About us selected", Toast.LENGTH_SHORT).show();
+				new AlertDialog.Builder(MainActivity.this)
+						.setTitle(R.string.app_name)
+						.setMessage(R.string.app_description)
+						.setPositiveButton("Visit", (dialog, which) -> {
+							Intent webIntent = new Intent(MainActivity.this, WebsiteActivity.class);
+							webIntent.putExtra(URL_KEY, "https://github.com/toprek95/grocery-store");
+							startActivity(webIntent);
+						})
+						.create().show();
 			}
 			if (item.getItemId() == R.id.terms) {
-				Toast.makeText(MainActivity.this, "Terms selected", Toast.LENGTH_SHORT).show();
+				new AlertDialog.Builder(MainActivity.this)
+						.setTitle(R.string.terms_and_conditions)
+						.setMessage(R.string.terms_description)
+						.setPositiveButton("Dismiss", (dialog, which) -> {
+						})
+						.create().show();
 			}
 			if (item.getItemId() == R.id.licences) {
-				Toast.makeText(MainActivity.this, "Licences selected", Toast.LENGTH_SHORT).show();
+				new LicencesDialog().show(getSupportFragmentManager(), "licences");
 			}
 			return false;
 		});
