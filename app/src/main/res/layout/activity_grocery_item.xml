@@ -91,10 +91,33 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/reviews_container"
+                android:id="@+id/description_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cart_rating_container">
+
+                <TextView
+                    android:id="@+id/description_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_label"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/description_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/description_label"
+                    android:text="@string/lorem_ipsum" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reviews_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description_container"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/reviews_label"

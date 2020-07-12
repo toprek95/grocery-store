@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +20,7 @@ import com.example.grocerystore.Helpers.GroceryItemAdapter;
 import com.example.grocerystore.Models.GroceryItem;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 
 	private static final String TAG = "SearchActivityDebug";
 	ColorStateList originalTextViewColor;
-	private EditText searchInput;
+	private TextInputEditText searchInput;
 	private ImageView searchButton;
 	private TextView firstCategory, secondCategory, thirdCategory, seeAllCategories;
 	private MaterialToolbar toolbar;

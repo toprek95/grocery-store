@@ -33,7 +33,7 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
 	public static final String GROCERY_ITEM_ID = "grocery_item_id";
 	private static final String TAG = "GroceryItemDebug";
 	private MaterialToolbar groceryItemToolbar;
-	private TextView groceryItemName, groceryItemPrice, addNewReview;
+	private TextView groceryItemName, groceryItemPrice, groceryItemDescription, addNewReview;
 	private ImageView groceryItemImage;
 	private MaterialRatingBar groceryItemAverageRating;
 	private Button addToCartButton;
@@ -92,6 +92,7 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
 
 					groceryItemName.setText(groceryItem.getName());
 					groceryItemPrice.setText(groceryItem.getPrice() + " $");
+					groceryItemDescription.setText(groceryItem.getDescription());
 					Glide.with(this)
 							.asBitmap()
 							.load(Uri.parse(groceryItem.getImageUrl()))
@@ -127,6 +128,7 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
 	private void initViews() {
 		groceryItemName = findViewById(R.id.grocery_item_name);
 		groceryItemPrice = findViewById(R.id.grocery_item_price);
+		groceryItemDescription = findViewById(R.id.description_text_view);
 		addNewReview = findViewById(R.id.add_new_review_grocery_item);
 
 		groceryItemImage = findViewById(R.id.grocery_item_image);

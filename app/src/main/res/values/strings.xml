@@ -86,4 +86,5 @@
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="terms_description">This application is released without any Terms and Conditions. \nEnjoy using this application.</string>
     <string name="google_url">https://www.google.com/</string>
+    <string name="description_label">Description:</string>
 </resources>

@@ -3,9 +3,10 @@ package com.example.grocerystore.Helpers;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.example.grocerystore.Models.GroceryItem;
 import com.example.grocerystore.Models.Review;
 import com.example.grocerystore.R;
 import com.example.grocerystore.Utils;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +32,8 @@ import static com.example.grocerystore.GroceryItemActivity.GROCERY_ITEM_ID;
 public class AddReviewDialog extends DialogFragment {
 
 	private TextView reviewItemName, cancelReview;
-	private EditText reviewUserName, reviewText;
+	private TextInputEditText reviewUserName, reviewText;
+	private TextInputLayout reviewUserNameLayout, reviewTextLayout;
 	private MaterialRatingBar reviewRating;
 	private Button addNewReviewButton;
 
@@ -68,9 +72,9 @@ public class AddReviewDialog extends DialogFragment {
 						String currentDate = getCurrentDate();
 
 						if (userName.isEmpty()) {
-							reviewUserName.setError("Enter user name");
+							reviewUserNameLayout.setError("Enter user name");
 						} else if (newRating[0] <= 3 && review.isEmpty()) {
-							reviewText.setError("Please explain why your rating is that low");
+							reviewTextLayout.setError("Please explain why your rating is that low");
 
 						} else {
 							try {
@@ -91,7 +95,45 @@ public class AddReviewDialog extends DialogFragment {
 			}
 		}
 
+		handleInputError();
+
 		return builder.create();
+	}
+
+	private void handleInputError() {
+		reviewUserName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				reviewUserNameLayout.setError(null);
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+
+			}
+		});
+
+		reviewText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				reviewTextLayout.setError(null);
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+
+			}
+		});
 	}
 
 	private String getCurrentDate() {
@@ -104,7 +146,9 @@ public class AddReviewDialog extends DialogFragment {
 		reviewItemName = view.findViewById(R.id.add_new_review_item_name);
 		cancelReview = view.findViewById(R.id.add_new_review_cancel);
 		reviewUserName = view.findViewById(R.id.add_new_review_user_name);
+		reviewUserNameLayout = view.findViewById(R.id.add_new_review_user_name_layout);
 		reviewText = view.findViewById(R.id.add_new_review_text);
+		reviewTextLayout = view.findViewById(R.id.add_new_review_text_layout);
 		reviewRating = view.findViewById(R.id.add_new_review_rating);
 		addNewReviewButton = view.findViewById(R.id.add_new_review_button);
 	}

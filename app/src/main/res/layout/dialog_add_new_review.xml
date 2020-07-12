@@ -30,15 +30,23 @@
             android:textStyle="italic" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/add_new_review_user_name"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_new_review_user_name_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/name_hint"
-        android:inputType="text|textCapSentences"
-        android:lines="1"
-        android:maxLines="1" />
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_new_review_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textCapSentences"
+            android:lines="1"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         android:id="@+id/add_new_review_rating"
@@ -52,15 +60,23 @@
         app:mrb_fillBackgroundStars="true"
         app:mrb_progressTint="@color/colorPrimary" />
 
-    <EditText
-        android:id="@+id/add_new_review_text"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_new_review_text_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="start"
         android:hint="@string/your_review"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="5" />
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_new_review_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="5" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

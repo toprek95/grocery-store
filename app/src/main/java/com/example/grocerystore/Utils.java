@@ -2,7 +2,6 @@ package com.example.grocerystore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.example.grocerystore.Models.CartItem;
 import com.example.grocerystore.Models.GroceryItem;
@@ -245,14 +244,14 @@ public class Utils {
 
 	public static void updateUserPoints(Context context, GroceryItem item, int points) {
 		/*
-		* Update user point based on next criteria:
-		* User visits item:         1 point
-		* User rate item:           (Rate*2) points
-		* User review item:         3 points
-		* User purchase item:       4 points
-		* Item appear in search:    1 point
-		* User read item            1 point every minute
-		*/
+		 * Update user point based on next criteria:
+		 * User visits item:         1 point
+		 * User rate item:           (Rate*2) points
+		 * User review item:         3 points
+		 * User purchase item:       4 points
+		 * Item appear in search:    1 point
+		 * User read item            1 point every minute
+		 */
 		SharedPreferences sharedPreferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		ArrayList<GroceryItem> allItems = getAllItems(context);
@@ -271,7 +270,7 @@ public class Utils {
 		editor.commit();
 	}
 
-	public static String getLicences(){
+	public static String getLicences() {
 		String licence = "";
 		licence += "GLIDE\n";
 		licence += "License for everything not in third_party and not otherwise marked:\n" +
@@ -368,7 +367,7 @@ public class Utils {
 				"sublicense, and/or sell copies of the Software, and to permit persons who\n" +
 				"receive copies from any such party to do so, with the only requirement being\n" +
 				"that this copyright notice remain intact.";
-		licence +="\n\n";
+		licence += "\n\n";
 		licence += "RETROFIT\n";
 		licence += "Copyright 2013 Square, Inc.\n" +
 				"\n" +
@@ -383,7 +382,7 @@ public class Utils {
 				"WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" +
 				"See the License for the specific language governing permissions and\n" +
 				"limitations under the License.";
-		licence +="\n\n";
+		licence += "\n\n";
 		licence += "GSON, MATERIAL DESIGN, OKHTTP\n";
 		licence += "  Apache License\n" +
 				"                           Version 2.0, January 2004\n" +
